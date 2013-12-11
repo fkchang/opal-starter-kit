@@ -1,0 +1,7 @@
+# your normal rspec goes here
+describe "Application" do
+  it 'should be true' do
+    expect(true).to eq(true)
+  end
+
+end

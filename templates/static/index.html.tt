@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!-- include the javascript files your opal code uses before including the
+         compiled application.js -->
+    <!-- jquery included for opal-jquery -->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js" ></script>
+    <script src="js/application.js"></script>
+  </head>
+  <body>
+    <div id='mydiv'>
+      <h1 id="h1">Put your content here</h1>
+    </div>
+  </body>
+</html>

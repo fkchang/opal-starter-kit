@@ -1,0 +1,8 @@
+require 'opal'                  # opal language/env
+require 'opal-jquery'           # for Document.ready?
+# <%= project_name %>
+
+Document.ready? do
+  alert "Hello World"
+  Element.find("#h1").text = "Changed by Opal-Jquery"
+end
