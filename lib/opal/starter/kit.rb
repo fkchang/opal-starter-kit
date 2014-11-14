@@ -28,26 +28,34 @@ module Opal
         # def new(type, project_name)
         def new
           puts type, project_name
-
-          create_project_files project_name
-          create_initial_source project_name
-          create_specs project_name
-          create_ruby_version_gemset_files project_name
+          case type
+          when "static", "opal-server"
+            create_project_files type, project_name
+            create_initial_source type, project_name
+            create_specs type, project_name
+            create_ruby_version_gemset_files project_name
+          else
+            say "you are fucked"
+          end
         end
 
         private
 
-        def create_project_files project_name
+        def create_project_files(type,  project_name)
           empty_directory project_name
-          create_gemfile project_name
-          create_rakefile project_name
-          create_example_html project_name
+          create_gemfile type, project_name
+          create_rakefile type, project_name
+          create_example_html type, project_name
           empty_directory "#{project_name}/js"
-
+          create_config_ru
         end
 
-        def create_example_html(project_name)
-          template "templates/static/index.html.tt", "#{project_name}/index.html"
+        def create_config_ru
+          template "templates/opal-server/config.ru.tt", "#{project_name}/config.ru"
+        end
+
+        def create_example_html(type, project_name)
+          template "templates/#{type}/index.html.tt", "#{project_name}/index.html"
         end
 
         def create_ruby_version_gemset_files project_name
@@ -58,13 +66,13 @@ module Opal
           end
         end
 
-        def create_specs project_name
+        def create_specs(type, project_name)
           empty_directory "#{project_name}/spec"
-          template "templates/static/application_spec.rb.tt", "#{project_name}/spec/application_spec.rb"
-          template "templates/static/spec_index.html.tt", "#{project_name}/spec/index.html"
+          template "templates/#{type}/application_spec.rb.tt", "#{project_name}/spec/application_spec.rb"
+          template "templates/#{type}/spec_index.html.tt", "#{project_name}/spec/index.html"
         end
 
-        def create_gemfile(project_name)
+        def create_gemfile(type, project_name)
           create_file "#{project_name}/Gemfile" do
             lines = ["source 'http://rubygems.org'", ""]
             add_gems(lines, "opal", "opal-rspec", "opal-jquery", "opal-sprockets", )
@@ -72,13 +80,13 @@ module Opal
           end
         end
 
-        def create_initial_source project_name
+        def create_initial_source(type, project_name)
           empty_directory "#{project_name}/app"
-          template "templates/static/application.rb.tt", "#{project_name}/app/application.rb"
+          template "templates/#{type}/application.rb.tt", "#{project_name}/app/application.rb"
         end
 
-        def create_rakefile(project_name)
-          template "templates/static/Rakefile.tt", "#{project_name}/Rakefile"
+        def create_rakefile(type, project_name)
+          template "templates/#{type}/Rakefile.tt", "#{project_name}/Rakefile"
         end
 
         def add_gems(lines_array, * gems)

@@ -1,0 +1,9 @@
+require 'bundler'
+Bundler .require
+
+run Opal::Server.new { |s|
+  # add files to the path to serve up
+  s.append_path "app"
+  # name of the main compiled file
+  s.main = "application"
+}

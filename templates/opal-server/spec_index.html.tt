@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Opal Rspec</title>
+  </head>
+  <body>
+    <!-- put in whatever dom objects you need for your specs here -->
+    <!-- you must include this line for opal-rspec to work -->
+    <%%= javascript_include_tag @server.main %>
+  </body>
+</html>
